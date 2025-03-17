@@ -31,7 +31,6 @@ function process_key {
     scene=$(echo "$scene_map" | grep "$key" | awk '{print $2}')
 
     if [[ -n $scene ]]
-        echo "Key not found: $key"
     then
         # check against last_run. Either exist, or update with current time and continue.
         current_time=$(date +%s)
@@ -50,7 +49,7 @@ function process_key {
           -d "{\"entity_id\": \"scene.$scene\"}" \
           "$endpoint"
     else
-        echo Scene not found
+        echo "Scene not found for key $key"
     fi
 }
 export -f process_key
