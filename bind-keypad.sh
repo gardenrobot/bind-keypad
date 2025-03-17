@@ -28,21 +28,22 @@ function process_key {
     key=$(echo "$1" | sed 's/key release //')
     echo key: $key
 
-    # check against last_run. Either exist, or update with current time and continue.
-    current_time=$(date +%s)
-    last_run=$(cat $last_run_file)
-    if [[ "$last_run + $interval" -gt $current_time ]]
-    then
-        echo "Hasn't been $interval seconds since last run. Ignoring."
-        exit 1
-    else
-        date +%s > $last_run_file
-    fi
-
     scene=$(echo "$scene_map" | grep "$key" | awk '{print $2}')
 
     if [[ -n $scene ]]
+        echo "Key not found: $key"
     then
+        # check against last_run. Either exist, or update with current time and continue.
+        current_time=$(date +%s)
+        last_run=$(cat $last_run_file)
+        if [[ "$last_run + $interval" -gt $current_time ]]
+        then
+            echo "Hasn't been $interval seconds since last run. Ignoring."
+            exit 1
+        else
+            date +%s > $last_run_file
+        fi
+
         echo scene: $scene
         curl -X POST -H "Authorization: Bearer $token" \
           -H "Content-Type: application/json" \
