@@ -1,22 +1,22 @@
 #!/bin/bash
 
-# map the scenes to keys here
-read -r -d '' scene_map <<EOF
-87 firstflooroff
-88 movie_night_1
-89 firstfloorbright
-EOF
-
 # set this to the human readable name of the keyboard using `xinput list`
-dev_name="2.4G Keyboard  "
+dev_id="$1"
 
-# get token from https://homeassistant.thepoly.cool/profile/security
-export token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiI3MWQ5YTc5NzJkYjE0ZGZjYWE4MTZjYWQ4YTQ5YjAzYyIsImlhdCI6MTc0MDY3NjkwNSwiZXhwIjoyMDU2MDM2OTA1fQ.yEuwSAgdbqqUqaoPx90B2cROG3puXUXqQS3RZKKVDOY"
+# map the scenes to keys here. example:
+#87 firstflooroff
+#88 movie_night_1
+#89 firstfloorbright
+scene_map_file=$2
+export scene_map=$(cat $scene_map_file)
+
+# get token from https://homeassistant.example.com/profile/security
+token_file=$3
+export token=$(cat $token_file)
 
 
 export scene_map
 export endpoint=https://homeassistant.thepoly.cool/api/services/scene/turn_on
-dev_id=$(xinput list | grep "$dev_name" | tail -n 1 | sed -r 's/.*id=([[:digit:]]+).*/\1/')
 
 # hold the timestamp of the last time process_key ran. this is to avoid keyholding/mashing overloading the server with requests
 export last_run_file=mktemp
