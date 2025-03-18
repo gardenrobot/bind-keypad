@@ -19,7 +19,7 @@ export scene_map
 export endpoint=https://homeassistant.thepoly.cool/api/services/scene/turn_on
 
 # hold the timestamp of the last time process_key ran. this is to avoid keyholding/mashing overloading the server with requests
-export last_run_file=mktemp
+export last_run_file=$(mktemp)
 echo 0 > $last_run_file
 # number of seconds to wait after last run to start running again
 export interval=2
