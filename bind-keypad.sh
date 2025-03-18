@@ -53,4 +53,5 @@ function process_key {
     fi
 }
 export -f process_key
+xinput float $dev_id
 xinput test $dev_id | ag 'key release ' | xargs -I {} bash -c 'process_key "{}"'
