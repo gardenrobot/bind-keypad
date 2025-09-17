@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# set this to the human readable name of the keyboard using `xinput list`
+# set this to the id of the device found in /dev/input/by-id/
 dev_id="$1"
 
 # map the scenes to keys here. example:
@@ -25,7 +25,7 @@ echo 0 > $last_run_file
 export interval=2
 
 function process_key {
-    key=$(echo "$1" | sed 's/key release //')
+    key=$1
     echo key: $key
 
     scene=$(echo "$scene_map" | grep "$key" | awk '{print $2}')
@@ -53,5 +53,4 @@ function process_key {
     fi
 }
 export -f process_key
-xinput float $dev_id
-xinput test $dev_id | ag 'key release ' | xargs -I {} bash -c 'process_key "{}"'
+evtest "$dev_id" | grep --line-buffered "^Event:" | grep --line-buffered EV_MSC | sed --unbuffered 's/.*value //' | xargs -I {} bash -c 'process_key "{}"'
