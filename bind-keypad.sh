@@ -53,4 +53,4 @@ function process_key {
     fi
 }
 export -f process_key
-evtest "$dev_id" | grep --line-buffered "^Event:" | grep --line-buffered EV_MSC | sed --unbuffered 's/.*value //' | xargs -I {} bash -c 'process_key "{}"'
+evtest --grab "$dev_id" | grep --line-buffered "^Event:" | grep --line-buffered EV_MSC | sed --unbuffered 's/.*value //' | xargs -I {} bash -c 'process_key "{}"'
