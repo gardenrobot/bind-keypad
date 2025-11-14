@@ -2,7 +2,8 @@
 
 System for a cheap, tactile scene-setting device.
 
-![](keypad.jpg "A wireless keypad. Many of the keypads have been taped and drawn over with small icons.")
+![](keypad1.jpg "A wireless keypad. Many of the keypads have been taped and drawn over with small icons.")
+![](keypad2.jpg "A similiar keypad with different icons.")
 
 This addresses the issue that physical buttons for Home Assistant have few buttons and are expensive. This system allows a wireless keypad to be used instead.
 
