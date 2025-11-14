@@ -16,13 +16,13 @@ export token=$(cat $token_file)
 
 
 export scene_map
-export endpoint=https://homeassistant.thepoly.cool/api/services/scene/turn_on
+export endpoint="$4/api/services/scene/turn_on"
 
 # hold the timestamp of the last time process_key ran. this is to avoid keyholding/mashing overloading the server with requests
 export last_run_file=$(mktemp)
 echo 0 > $last_run_file
-# number of seconds to wait after last run to start running again
-export interval=2
+# number of seconds to wait after last keypress to start processing keypresses again
+export cooldown=1
 
 function process_key {
     key=$1
@@ -35,9 +35,9 @@ function process_key {
         # check against last_run. Either exist, or update with current time and continue.
         current_time=$(date +%s)
         last_run=$(cat $last_run_file)
-        if [[ "$last_run + $interval" -gt $current_time ]]
+        if [[ "$last_run + $cooldown" -gt $current_time ]]
         then
-            echo "Hasn't been $interval seconds since last run. Ignoring."
+            echo "Hasn't been $cooldown seconds since last run. Ignoring."
             exit 1
         else
             date +%s > $last_run_file
