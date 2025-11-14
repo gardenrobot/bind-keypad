@@ -16,7 +16,7 @@ export token=$(cat $token_file)
 
 
 export scene_map
-export endpoint=https://homeassistant.thepoly.cool/api/services/scene/turn_on
+export endpoint="$4/api/services/scene/turn_on"
 
 # hold the timestamp of the last time process_key ran. this is to avoid keyholding/mashing overloading the server with requests
 export last_run_file=$(mktemp)

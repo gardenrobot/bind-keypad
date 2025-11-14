@@ -1,6 +1,6 @@
 # Home Assistant DIY Keypad
 
-System for a cheap, tactile scene setting device.
+System for a cheap, tactile scene-setting device.
 
 ![](keypad.jpg "A wireless keypad. Many of the keypads have been taped and drawn over with small icons.")
 
@@ -10,9 +10,8 @@ This addresses the issue that physical buttons for Home Assistant have few butto
 
 1. Acquire a wireless keypad (I used [this one](https://www.amazon.com/dp/B07RZZMV62)) and a nearby computer to be a listener.
 1. Create a long lived token and store it token.txt.
-1. Create desired scenes in HA.
-1. Open scenes.txt and place the scene IDs in the desired lines.
-1. Install bind-keypad.service.
+1. Open scenes.txt. Replace the this_is_key_X with the desired scene id.
+1. Open bind-keypad.service. Replace the variables and install.
 1. Decorate! Draw some cute icons on the keys you've mapped!
 
 ## Considerations:

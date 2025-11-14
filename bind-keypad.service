@@ -1,1 +1,16 @@
-TODO
+[Unit]
+Description=Run keypad bind
+
+[Service]
+Type=simple
+ExecStart=./bind-keypad.sh \
+	/dev/input/by-id/REPLACE_THIS \
+	scenes.txt \
+	token.txt \
+    https://REPLACE_THIS.example.com
+WorkingDirectory=REPLACE_THIS
+RuntimeMaxSec=24h
+Restart=always
+
+[Install]
+WantedBy=default.target
